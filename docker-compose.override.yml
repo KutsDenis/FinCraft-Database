@@ -1,0 +1,21 @@
+services:
+  postgres-test:
+    image: postgres:17.2-alpine
+    container_name: fincraft_postgres_test
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_db
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_test_data:
