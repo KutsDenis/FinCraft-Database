@@ -8,3 +8,5 @@ CREATE TABLE incomes
     created_at  TIMESTAMP DEFAULT NOW(),
     updated_at  TIMESTAMP DEFAULT NOW()
 );
+ALTER TABLE incomes
+    ADD CONSTRAINT positive_amount CHECK (amount > 0);
