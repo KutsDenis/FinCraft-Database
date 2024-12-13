@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION get_incomes_for_period(
+CREATE FUNCTION get_incomes_for_period(
     p_user_id INT,
     p_start_date TIMESTAMP,
     p_end_date TIMESTAMP
@@ -10,7 +10,7 @@ BEGIN
     END IF;
 
     RETURN QUERY
-    SELECT incomes.user_id, incomes.category_id, incomes.amount, incomes.description
+    SELECT user_id, incomes.category_id, incomes.amount, incomes.description
     FROM incomes
     WHERE incomes.user_id = p_user_id
         AND created_at BETWEEN p_start_date AND p_end_date;
