@@ -1,0 +1,1 @@
+ALTER TABLE incomes ADD COLUMN updated_at TIMESTAMP DEFAULT NOW();
