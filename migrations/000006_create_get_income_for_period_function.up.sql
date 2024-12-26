@@ -6,7 +6,7 @@ CREATE FUNCTION get_incomes_for_period(
 RETURNS TABLE(category_id INT, amount NUMERIC(12,2), description TEXT) AS $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM users WHERE id = p_user_id) THEN
-        RAISE EXCEPTION 'User with id % does not exist', p_user_id;
+        RAISE EXCEPTION 'User does not exist';
     END IF;
 
     IF p_end_date < p_start_date THEN
