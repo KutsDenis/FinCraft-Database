@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION add_income(
     p_user_id INT,
     p_category_id INT,
-    p_amount NUMERIC(12, 2),
+    p_amount INT,
     p_description TEXT
 )
     RETURNS VOID AS $$

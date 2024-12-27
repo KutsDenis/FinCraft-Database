@@ -3,7 +3,7 @@ CREATE FUNCTION get_incomes_for_period(
     p_start_date TIMESTAMP,
     p_end_date TIMESTAMP
 )
-RETURNS TABLE(category_id INT, amount NUMERIC(12,2), description TEXT) AS $$
+RETURNS TABLE(category_id INT, amount INT, description TEXT) AS $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM users WHERE id = p_user_id) THEN
         RAISE EXCEPTION 'User with id % does not exist', p_user_id;
