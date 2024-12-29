@@ -3,6 +3,7 @@ DOCKER_COMPOSE = docker-compose
 MIGRATE = migrate
 SERVICE = postgres
 TEST_SERVICE = postgres-test
+MIGRATE_FLAGS = -seq false -format datetime
 
 # Пути
 MIGRATIONS_PATH = migrations
@@ -16,9 +17,6 @@ endif
 # Формируем строки подключения
 DB_DSN = postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=disable
 TEST_DB_DSN = postgres://$(TEST_DB_USER):$(TEST_DB_PASSWORD)@$(TEST_DB_HOST):$(TEST_DB_PORT)/$(TEST_DB_NAME)?sslmode=disable
-
-# Команды
-.PHONY: up down restart logs clean ps shell test-up test-down test-logs test-shell all-up all-down all-logs migrate-up migrate-down migrate-reset migrate-status test-migrate-up test-migrate-down test-migrate-reset test-migrate-status
 
 # Запустить основную базу
 up:
@@ -99,3 +97,7 @@ test-migrate-reset:
 # Проверить статус миграций (тестовая база)
 test-migrate-status:
 	$(MIGRATE) -path $(MIGRATIONS_PATH) -database "$(TEST_DB_DSN)" version
+
+# Создать новую миграцию
+migrate-create:
+	$(MIGRATE) create -ext sql -dir $(MIGRATIONS_PATH) $(name)
